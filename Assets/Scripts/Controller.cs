@@ -9,7 +9,7 @@ public class Controller : MonoBehaviour
     private PositionTerminator pt;
     private Drawer drawer;
 
-    private void Awake()
+    private void Start()
     {
         dc = new DistanceCalculate();
         pt = new PositionTerminator();

@@ -1,16 +1,25 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
-public class DistanceCalculate
+
+public class DistanceCalculate : MonoBehaviour
 {
-    public static List<Hatch> hatches { get; private set; }
+    public static List<Hatch> hatches { get; private set; } = new List<Hatch>();
     public float raduis = 10;
     private float distance;
+    public Text distText;
 
     private void ControlDraw()
     {
-        foreach (Hatch hatch in JsonReader.hatches)
+        foreach (Hatch hatch in JSONReader.hatches)
         {
             distance = MathLocation.CalculateDistance(GPSTraker.currentlocation, hatch.location);
+
+            distText = FindObjectOfType<Text>();
+
+            distText.text = distance.ToString();
             if (raduis >= distance && hatch.state == State.unDrawed)
             {
                 hatch.distance = distance;
@@ -18,6 +27,9 @@ public class DistanceCalculate
             }
         }
     }
+    
+        
+    
 
     private void ControlDelete()
     {
