@@ -19,12 +19,13 @@ public class DistanceCalculate : MonoBehaviour
 
             distText = FindObjectOfType<Text>();
 
-            distText.text = distance.ToString();
+            
             if (raduis >= distance && hatch.state == State.unDrawed)
             {
                 hatch.distance = distance;
                 hatches.Add(hatch);
             }
+            distText.text = hatches.Count.ToString();
         }
     }
     

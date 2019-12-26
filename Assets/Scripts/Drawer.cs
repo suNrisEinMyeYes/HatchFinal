@@ -7,32 +7,41 @@ public class Drawer : MonoBehaviour
 {
     public Text spawn;
     public Text curState;
+    public Text postext;
     private ARSessionOrigin m_SessionOrigin;
     public GameObject arCamera;
+    public GameObject prefab;
 
     public void DrawObject()
     {
-        for (int i = 0; i < DistanceCalculate.hatches.Count - 1; i++)
+        
+        for (int i = 0; i < DistanceCalculate.hatches.Count; i++)
         {
             curState.text = DistanceCalculate.hatches[i].state.ToString();
             if (DistanceCalculate.hatches[i].state == State.unDrawed)
             {
+
+                postext.text = DistanceCalculate.hatches[i].position.ToString();
+                spawn.text = "1";
+                
+                DistanceCalculate.hatches[i].model = Instantiate(prefab, Vector3.zero, Quaternion.identity);
+                spawn.text = "2";
+                m_SessionOrigin.MakeContentAppearAt(DistanceCalculate.hatches[i].model.transform, arCamera.transform.position, Quaternion.identity); //
+                spawn.text = "3";
+                m_SessionOrigin.MakeContentAppearAt(DistanceCalculate.hatches[i].model.transform, DistanceCalculate.hatches[i].position, Quaternion.identity);//
+                spawn.text = "complete";
                 DistanceCalculate.hatches[i].state = State.drawed;
-                DistanceCalculate.hatches[i] = Instantiate(DistanceCalculate.hatches[i].model, Vector3.zero, Quaternion.identity);
-                m_SessionOrigin.MakeContentAppearAt(DistanceCalculate.hatches[i].model.transform, arCamera.transform.position, Quaternion.identity);
-                m_SessionOrigin.MakeContentAppearAt(DistanceCalculate.hatches[i].model.transform, DistanceCalculate.hatches[i].position, Quaternion.identity);
-                spawn.text = "spawned";
             }
 
             if (DistanceCalculate.hatches[i].state == State.toErase)
             {
-                Destroy(DistanceCalculate.hatches[i].gameObject);
+                Destroy(DistanceCalculate.hatches[i].model);
                 DistanceCalculate.hatches[i].state = State.toDelete;
             }
         }
     }
 
-    private void Awake()
+    private void Start()
     {
         m_SessionOrigin = GetComponent<ARSessionOrigin>();
     }
