@@ -11,7 +11,7 @@ public class Drawer : MonoBehaviour
     private ARSessionOrigin m_SessionOrigin;
     public GameObject arCamera;
     public GameObject prefab;
-
+    private Vector3 shift = new Vector3(0f, 0f, 0f);
     public void DrawObject()
     {
         
@@ -22,14 +22,14 @@ public class Drawer : MonoBehaviour
             {
 
                 postext.text = DistanceCalculate.hatches[i].position.ToString();
-                spawn.text = "1";
-                
-                DistanceCalculate.hatches[i].model = Instantiate(prefab, Vector3.zero, Quaternion.identity);
-                spawn.text = "2";
-                m_SessionOrigin.MakeContentAppearAt(DistanceCalculate.hatches[i].model.transform, arCamera.transform.position, Quaternion.identity); //
-                spawn.text = "3";
-                m_SessionOrigin.MakeContentAppearAt(DistanceCalculate.hatches[i].model.transform, DistanceCalculate.hatches[i].position, Quaternion.identity);//
-                spawn.text = "complete";
+
+                shift = arCamera.transform.position + DistanceCalculate.hatches[i].position;
+                DistanceCalculate.hatches[i].model = Instantiate(prefab, shift, Quaternion.identity);
+
+                spawn.text = "spawned";
+                //m_SessionOrigin.MakeContentAppearAt(DistanceCalculate.hatches[i].model.transform, arCamera.transform.position, Quaternion.identity); //
+                //m_SessionOrigin.MakeContentAppearAt(DistanceCalculate.hatches[i].model.transform, DistanceCalculate.hatches[i].position, Quaternion.identity);//
+               
                 DistanceCalculate.hatches[i].state = State.drawed;
             }
 
