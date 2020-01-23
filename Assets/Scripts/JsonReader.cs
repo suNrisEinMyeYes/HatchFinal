@@ -10,8 +10,9 @@ using UnityEngine.UI;
 public class JSONReader : MonoBehaviour
 {
     public static List<Hatch> hatches = new List<Hatch>();
-    public Text longs;
+    //public Text longs;
     //public Text lats;
+    public static int Size;
  
    
     public void init()
@@ -24,7 +25,7 @@ public class JSONReader : MonoBehaviour
         {
             hatches.Add(JsonConvert.DeserializeObject<Hatch>(s));
         }
-       longs.text = hatches.Count.ToString();
+       Size = hatches.Count;
     }
     private void Start()
     {

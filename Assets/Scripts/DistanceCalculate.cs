@@ -28,11 +28,11 @@ public class DistanceCalculate : MonoBehaviour
             distText.text = hatches.Count.ToString();
         }
     }
-    
-        
-    
 
-    private void ControlDelete()
+
+
+
+    private void ControlErase()
     {
         foreach (Hatch hatch in hatches)
         {
@@ -40,11 +40,18 @@ public class DistanceCalculate : MonoBehaviour
             {
                 hatch.state = State.toErase;
             }
+        }
+    }
 
-            if (hatch.state == State.toDelete)
+    private void ControlDelete()
+    {
+        for (int i = 0; i < hatches.Count; i++)
+        {
+            if (hatches[i].state == State.toDelete)
             {
-                hatch.state = State.unDrawed;
-                hatches.Remove(hatch);
+                hatches[i].state = State.unDrawed;
+                hatches.RemoveAt(i);
+                i--;
             }
         }
     }
@@ -53,5 +60,6 @@ public class DistanceCalculate : MonoBehaviour
     {
         ControlDraw();
         ControlDelete();
+        ControlErase();
     }
 }
