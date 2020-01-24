@@ -9,15 +9,17 @@ public class DistanceCalculate : MonoBehaviour
     public static List<Hatch> hatches { get; private set; } = new List<Hatch>();
     public float raduis = 10;
     private float distance;
-    public Text distText;
+    //public Text distText;
 
     private void ControlDraw()
     {
+        
         foreach (Hatch hatch in JSONReader.hatches)
         {
+            
             distance = MathLocation.CalculateDistance(GPSTraker.currentlocation, hatch.location);
-
-            distText = FindObjectOfType<Text>();
+           
+            //distText = FindObjectOfType<Text>();
 
             
             if (raduis >= distance && hatch.state == State.unDrawed)
@@ -25,7 +27,7 @@ public class DistanceCalculate : MonoBehaviour
                 hatch.distance = distance;
                 hatches.Add(hatch);
             }
-            distText.text = hatches.Count.ToString();
+            //distText.text = hatches.Count.ToString();
         }
     }
 

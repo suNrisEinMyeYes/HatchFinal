@@ -7,7 +7,7 @@ public class Hatch : MonoBehaviour
 
     public float distance;
     public GPSLocation location;
-    public string description;
+    public string description = "asda";
     public GameObject model;
    
 }

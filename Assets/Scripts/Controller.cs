@@ -20,7 +20,6 @@ public class Controller : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-
         dc.ControlDistance();
         pt.CanculateDistance();
         drawer.DrawObject();

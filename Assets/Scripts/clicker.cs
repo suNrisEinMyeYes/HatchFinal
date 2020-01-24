@@ -5,39 +5,76 @@ using UnityEngine;
 
 public class clicker : MonoBehaviour
 {
-    public InputField bar; 
-    public GameObject plane;
+    //public Text debug; 
+    //private GameObject temp;
+    public Canvas canv;
+    public Text main;
+    //
+    //public Hatch abc;
+   // public InputField inp;
+    //public Button but;
+    public InputField mark;
+    public Text input;
+    private Hatch temp;
+   
+
     // Start is called before the first frame update
-    void Start()
+    void Awake()
     {
-        //sphere = GetComponent<GameObject>();
+        //canv = GameObject.Find("Canvas");
+        //debug.text = canv.gameObject.activeInHierarchy.ToString();
     }
 
-    void Update()
+    public void check()
     {
-        
-        // Code for OnMouseDown in the iPhone. Unquote to test.
-        RaycastHit hit = new RaycastHit();
-        for (int i = 0; i < Input.touchCount; ++i)
+
+        if ((Input.touchCount > 0) && (Input.GetTouch(0).phase == TouchPhase.Began))
         {
-            if (Input.GetTouch(i).phase.Equals(TouchPhase.Began))
+            Ray raycast = Camera.main.ScreenPointToRay(Input.GetTouch(0).position);
+            RaycastHit raycastHit;
+            if (Physics.Raycast(raycast, out raycastHit))
             {
-                // Construct a ray from the current touch coordinates
-                Ray ray = Camera.main.ScreenPointToRay(Input.GetTouch(i).position);
-                if (Physics.Raycast(ray, out hit))
-                {
-                    if (plane.activeSelf)
-                    {
-                        bar.enabled = false;
-                        plane.SetActive(false);
-                    }
-                    else
-                    {
-                        bar.enabled = true;
-                        plane.SetActive(true);
-                    }
-                }
+                //main.text = raycastHit.collider.gameObject.name.ToString() + " " + raycastHit.collider.gameObject.tag.ToString() ;
+                canv.gameObject.SetActive(true);
+                temp = raycastHit.collider.gameObject.GetComponent<Hatch>();
+                main.text = temp.description;
             }
+            
         }
+            
+        
+    }
+
+    public void close()
+    {
+        temp.description = main.text;
+        canv.gameObject.SetActive(false);
+        
+    }
+
+    private void Update()
+    {
+        check();
+    }
+
+    public void OnChange()
+    {
+        main.text = main.text + '\n' + mark.text;
+        input.text = "Enter text...";
+        mark.text = "";
+    }
+    private void OnApplicationQuit()
+    {
+        foreach(Hatch hatch in JSONReader.hatches)
+        {
+            hatch.description = main.text;
+            hatch.state = State.unDrawed;
+            hatch.distance = 0;
+            hatch.position = Vector3.zero;
+        }
+        
+
     }
 }
+
+
