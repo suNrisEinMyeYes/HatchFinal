@@ -5,7 +5,7 @@ using UnityEngine.UI;
 [RequireComponent(typeof(ARSessionOrigin))]
 public class Drawer : MonoBehaviour
 {
-    //public Text spawn;
+    public Text spawn;
     //public Text curState;
     //public Text postext;
     private ARSessionOrigin m_SessionOrigin;
@@ -28,7 +28,7 @@ public class Drawer : MonoBehaviour
                 DistanceCalculate.hatches[i].model = Instantiate(prefab, shift, Quaternion.identity);
                 tempHatch = DistanceCalculate.hatches[i].model.GetComponent<Hatch>();
                 tempHatch.description = DistanceCalculate.hatches[i].description;
-                //vspawn.text = "spawned";
+                spawn.text = "spawned";
                 //m_SessionOrigin.MakeContentAppearAt(DistanceCalculate.hatches[i].model.transform, arCamera.transform.position, Quaternion.identity); //
                 //m_SessionOrigin.MakeContentAppearAt(DistanceCalculate.hatches[i].model.transform, DistanceCalculate.hatches[i].position, Quaternion.identity);//
 

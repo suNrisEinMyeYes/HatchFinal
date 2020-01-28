@@ -15,6 +15,7 @@ public class clicker : MonoBehaviour
     //public Button but;
     public InputField mark;
     public Text input;
+    public Text debug;
     private Hatch temp;
    
 
@@ -48,6 +49,16 @@ public class clicker : MonoBehaviour
     public void close()
     {
         temp.description = main.text;
+        int k = 0;
+        foreach (Hatch hatch in JSONReader.hatches)
+        {
+            if (temp.location.latitude == hatch.location.latitude && temp.location.longitude == hatch.location.longitude)
+            {
+                debug.text = "ZAEBAL "+ k.ToString();
+                JSONReader.hatches[k].description = temp.description;
+            }
+            k++;
+        }
         canv.gameObject.SetActive(false);
         
     }
@@ -62,19 +73,20 @@ public class clicker : MonoBehaviour
         main.text = main.text + '\n' + mark.text;
         input.text = "Enter text...";
         mark.text = "";
+       // foreach (Hatch hatch in JSONReader.hatches)
+        //{
+            //hatch.description = main.text;
+            //hatch.state = State.unDrawed;
+            //hatch.distance = 0;
+            //hatch.position = Vector3.zero;
+        //}
     }
-    private void OnApplicationQuit()
-    {
-        foreach(Hatch hatch in JSONReader.hatches)
-        {
-            hatch.description = main.text;
-            hatch.state = State.unDrawed;
-            hatch.distance = 0;
-            hatch.position = Vector3.zero;
-        }
+    //private void OnApplicationQuit()
+    //{
+        
         
 
-    }
+    //}
 }
 
 

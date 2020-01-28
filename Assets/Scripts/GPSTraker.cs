@@ -1,10 +1,18 @@
-﻿using UnityEngine;
+﻿using System;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.UI;
 
 public class GPSTraker : MonoBehaviour
 {
     private static GPSLocation _currentLocation;
     public static GPSLocation currentlocation { get => _currentLocation; }
-   
+    //private static List<GPSLocation> locations = new List<GPSLocation>{ };
+    public Text longit;
+    public Text lat;
+    public Text alt;
+
+
 
     public static float angleToNorth
     {
@@ -15,7 +23,7 @@ public class GPSTraker : MonoBehaviour
     {
         if (Input.location.isEnabledByUser)
         {
-            Input.location.Start();
+            Input.location.Start(1f,0.1f);
         }
     }
 
@@ -25,6 +33,9 @@ public class GPSTraker : MonoBehaviour
         {
             _currentLocation.latitude = Input.location.lastData.latitude;
             _currentLocation.longitude = Input.location.lastData.longitude;
+            longit.text = _currentLocation.longitude.ToString();
+            lat.text = _currentLocation.latitude.ToString();
+            alt.text = Input.location.lastData.altitude.ToString();
         }
     }
 
@@ -37,4 +48,5 @@ public class GPSTraker : MonoBehaviour
     {
         UpdateLocation();
     }
+    
 }
