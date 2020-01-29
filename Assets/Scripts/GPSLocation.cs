@@ -1,4 +1,5 @@
-﻿[System.Serializable]
+﻿using System;
+[Serializable]
 public struct GPSLocation
 {
     public float latitude;

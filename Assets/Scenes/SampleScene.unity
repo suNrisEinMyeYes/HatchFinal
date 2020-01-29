@@ -664,7 +664,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   lats: {fileID: 1312324768}
-  Output: []
 --- !u!114 &419378104
 MonoBehaviour:
   m_ObjectHideFlags: 0

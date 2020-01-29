@@ -1,25 +1,25 @@
 ﻿
 using System.Collections.Generic;
-using Newtonsoft.Json;
-using System.IO;
 
+using System.IO;
+using Newtonsoft.Json;
+//using System.Text.Json.Serialization;
+//using System.Runtime.Serialization;
 using UnityEngine;
 using UnityEngine.UI;
 
 
-//using System.Text.Json;
-//using System.Text.Json.Serialization;
 
 
 public class JSONReader : MonoBehaviour
 {
     public static List<Hatch> hatches = new List<Hatch>();
-    
+
     public Text lats;
     public static int Size;
-    public string[] Output;
 
-    
+    private bool isWritten = false;
+
 
     public void init()
     {
@@ -38,51 +38,39 @@ public class JSONReader : MonoBehaviour
     private void Start()
     {
         init();
-        
-        //Debug.Log("done");
     }
 
     private void OnApplicationPause(bool paused)
     {
-        if (!paused)
+        if (paused && isWritten)
+        {
+            isWritten = false;
+        }
+        else if (!paused || isWritten)
         {
             return;
         }
 
+
         Proxy proxy = new Proxy();
-        string[] json= { };
+
+
+        List<string> json = new List<string>();
+
         string path = Application.persistentDataPath + "/hatches.json";
-        int i = 0;
+
+
         foreach (Hatch hatch in hatches)
         {
             proxy.description = hatch.description;
-            proxy.location = hatch.location;
+            proxy.location.latitude = hatch.location.latitude;
+            proxy.location.longitude = hatch.location.longitude;
             proxy.state = State.unDrawed;
-            json[i] = JsonUtility.ToJson(proxy);
-            i++;
+            json.Add(JsonConvert.SerializeObject(proxy));
         }
+
         File.WriteAllLines(path, json);
-    }
-    public void testing()
-    {
-        Proxy hatch = new Proxy
-        {
-
-            description = "fuck",
-            location = new GPSLocation
-            {
-                latitude = 124f,
-                longitude = 12f
-            },
-            state = State.unDrawed
-
-
-        };
-
-        string path = Application.persistentDataPath + "/hatches.json";
-
-        
-        
+        isWritten = true;
     }
 }
 

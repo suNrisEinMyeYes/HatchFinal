@@ -28,6 +28,8 @@ public class Drawer : MonoBehaviour
                 DistanceCalculate.hatches[i].model = Instantiate(prefab, shift, Quaternion.identity);
                 tempHatch = DistanceCalculate.hatches[i].model.GetComponent<Hatch>();
                 tempHatch.description = DistanceCalculate.hatches[i].description;
+                tempHatch.location.latitude = DistanceCalculate.hatches[i].location.latitude;
+                tempHatch.location.longitude = DistanceCalculate.hatches[i].location.longitude;
                 spawn.text = "spawned";
                 //m_SessionOrigin.MakeContentAppearAt(DistanceCalculate.hatches[i].model.transform, arCamera.transform.position, Quaternion.identity); //
                 //m_SessionOrigin.MakeContentAppearAt(DistanceCalculate.hatches[i].model.transform, DistanceCalculate.hatches[i].position, Quaternion.identity);//

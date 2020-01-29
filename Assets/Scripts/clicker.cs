@@ -54,8 +54,18 @@ public class clicker : MonoBehaviour
         {
             if (temp.location.latitude == hatch.location.latitude && temp.location.longitude == hatch.location.longitude)
             {
-                debug.text = "ZAEBAL "+ k.ToString();
+                //debug.text = "ZAEBAL "+ k.ToString();
                 JSONReader.hatches[k].description = temp.description;
+            }
+            k++;
+        }
+        k = 0;
+        foreach (Hatch hatch in DistanceCalculate.hatches)
+        {
+            if (temp.location.latitude == hatch.location.latitude && temp.location.longitude == hatch.location.longitude)
+            {
+                //debug.text = "ZAEBAL "+ k.ToString();
+                DistanceCalculate.hatches[k].description = temp.description;
             }
             k++;
         }
